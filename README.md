@@ -1,37 +1,13 @@
-# Installation du module
+## Utilisation du module
+
+* Ce module utilise les "hiera", veuillez créer un répertoire "mysql" dans le dossier hieradata.
+* Dans ce nouveau répertoire veuillez créer un fichier portant le nom suivant : srv1.dev.yaml
+* Ce fichier doit contenir ce qui suit :
 
 ```
-$ mkdir mysql
-$ cd mysql
-$ git clone https://github.com/sipf-infrastructure/mysql.git
-
+---
+mysql::client   : 'enable'
+mysql::server   : 'disabled'
+mysql::password : 'PASSWORD'
 ```
-
-# Utilisation
-
-Dans le fichier '/etc/puppet/manifests/site.pp', on définit ce qui suit :
-```
-node test {
-        class { 'mysql':
-                client  => enable,
-                server  => enable,
-        }
-
-#       mysql::database { 'wikimedia':
-#               databasename    => wikimedia,
-#               account         => wikiuser,
-#               password        => password,
-#               localonly       => yes
-#               grant           => ["all"]
-#       }
-
-#       mysql::account { 'root':
-#               status          => enable,
-#               account         => root,
-#               password        => toto,
-#               host            => all,
-#               databases       => ["wikimedia","wordpress","drupal"],
-#               grant           => ["select","insert","update","delete","all"]
-#       }
-}
-```
+Remarque : les variables mysql::client et mysql::server permettent d'activer, respectivement, l'installation des outils clientes ou du serveur de base de donnée.
